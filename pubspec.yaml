@@ -1,5 +1,5 @@
 name: flutter_mathjs
-description: A new flutter plugin project.
+description: flutter wrapper for mathjs
 version: 0.0.1
 author:
 homepage:
