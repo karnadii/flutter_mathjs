@@ -36,12 +36,15 @@ class Mathjs {
 class ValueFormat {
   /// A number between 0 and 16 to round the digits of the number
   int precision;
+
   /// Number notation
   String notation;
   //  Available values: ‘ratio’ (default) or ‘decimal’.
   String fraction;
+
   /// Exponent determining the lower boundary for formatting a value with an exponent when `notation=auto`. Default value is -3.
   int lowExp;
+
   /// Exponent determining the upper boundary for formatting a value with an exponent when `notation='auto`. Default value is 5.
   int upperExp;
 
