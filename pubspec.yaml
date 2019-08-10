@@ -1,8 +1,8 @@
 name: flutter_mathjs
-description: flutter wrapper for mathjs
-version: 0.0.1
-author:
-homepage:
+description: run mathjs parser with flutter
+version: 0.0.
+author: Ujang Karnadi<uk9313285@gmail.com>
+homepage: https://github.com/karnadii/flutter_mathjs
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
