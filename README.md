@@ -2,6 +2,7 @@
 
 Flutter plugin to use mathjs parser.
 
+NOTE : Work for android only
 ## Getting Started
 - Depend on this plugin
   ```yaml
@@ -32,4 +33,3 @@ Flutter plugin to use mathjs parser.
   Mathjs.clear();
   ```
 
-  NOTE : Work for android only
