@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
     for (var e in exprs) {
       results.add(await evaluate(e));
     }
+
     setState(() {});
   }
 
@@ -43,11 +44,16 @@ class _MyAppState extends State<MyApp> {
       await Mathjs.clear();
       return "Data and function cleared";
     } else {
-      String resStr = await Mathjs.format(
-          expr,
-          ValueFormat(
-            precision: 14,
-          ));
+      String resStr;
+      try {
+        resStr = await Mathjs.format(
+            expr,
+            ValueFormat(
+              precision: 14,
+            ));
+      } on PlatformException catch (e) {
+        resStr = e.message;
+      }
       return resStr;
     }
   }

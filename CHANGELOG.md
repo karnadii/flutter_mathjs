@@ -1,3 +1,7 @@
+## 0.0.4
+
+add help function to retrieve a documentation
+
 ## 0.0.3
 
 update license

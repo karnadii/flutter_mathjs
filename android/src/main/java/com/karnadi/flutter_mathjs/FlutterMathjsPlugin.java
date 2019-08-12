@@ -47,13 +47,15 @@ public class FlutterMathjsPlugin implements MethodCallHandler {
             String res = eval(call.<String>argument("exp"));
             result.success(res);
             return;
-        }
-        if (call.method.equals("format") && call.hasArgument("exp") && call.hasArgument("format")) {
+        } else if (call.method.equals("help") && call.hasArgument("func")) {
+            String res = help(call.<String>argument("func"));
+            result.success(res);
+            return;
+        } else if (call.method.equals("format") && call.hasArgument("exp") && call.hasArgument("format")) {
             String res = format(call.<String>argument("exp"), call.<HashMap<String, Object>>argument("format"));
             result.success(res);
             return;
-        }
-        if (call.method.equals("clear")) {
+        } else if (call.method.equals("clear")) {
             clear();
             result.success(null);
             return;
@@ -98,8 +100,13 @@ public class FlutterMathjsPlugin implements MethodCallHandler {
             return e.getMessage();
         }
 
-
     }
+
+    public String help(String func) {
+        String doc = context.evaluateScript("math.help('" + func + "').toJSON()").toJSON();
+        return doc;
+    }
+
 
     private JSONObject getJsonFromMap(Map<String, Object> map) throws JSONException {
         JSONObject jsonData = new JSONObject();

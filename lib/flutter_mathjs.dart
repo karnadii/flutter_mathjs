@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'documentation.dart';
 
 class Mathjs {
   static const MethodChannel _channel = const MethodChannel('flutter_mathjs');
 
-  /// evaluate the given expression
+  /// evaluate the given expression form `math.parser().evaluate()`
   static Future<String> eval(String exp) async {
     final String result = await _channel.invokeMethod('eval', {'exp': exp});
     return result;
   }
 
-  /// Clear all saved function and variable created by eval method
+  /// Clear all saved function and variable created by eval method from `math.parser().clear()`
   static Future<Null> clear() async {
     await _channel.invokeMethod('clear');
   }
@@ -31,6 +32,13 @@ class Mathjs {
     return await _channel
         .invokeMethod("format", {"exp": expr, "format": format.toMap()});
   }
+
+  /// Return a JSON documentation
+  static Future<Documentation> help(String func) async {
+    Documentation doc = documentationFromJson(
+        await _channel.invokeMethod("help", {"func": func}));
+    return doc;
+  }
 }
 
 class ValueFormat {
@@ -39,6 +47,7 @@ class ValueFormat {
 
   /// Number notation
   String notation;
+
   //  Available values: ‘ratio’ (default) or ‘decimal’.
   String fraction;
 
