@@ -24,8 +24,6 @@ class _MyAppState extends State<MyApp> {
     '100 degC to fahrenheit'
   ];
 
-
-
   Future<List<String>> computeAllExprs() async {
     List<String> results = [];
     for (var e in exprs) {
@@ -67,17 +65,17 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             FutureBuilder(
               future: computeAllExprs(),
-              builder: (context, snapshot){
-                if(snapshot.hasError){
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
                   return Text('Error.... ${snapshot.error.toString()}');
                 }
-                if(!snapshot.hasData){
+                if (!snapshot.hasData) {
                   return Text('Computing....');
                 }
                 List<String> results = snapshot.data;
                 // avoids access to invalid position.
-               final length = min(results.length, exprs.length);
-               return  Container(
+                final length = min(results.length, exprs.length);
+                return Container(
                   child: ListView(
                     padding: EdgeInsets.only(bottom: 60),
                     children: <Widget>[
