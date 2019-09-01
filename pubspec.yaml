@@ -1,6 +1,6 @@
 name: flutter_mathjs
 description: mathjs wrapper for flutter (android) using liquidCore
-version: 0.0.5
+version: 0.0.4
 author: Ujang Karnadi<uk9313285@gmail.com>
 homepage: https://github.com/karnadii/flutter_mathjs
 

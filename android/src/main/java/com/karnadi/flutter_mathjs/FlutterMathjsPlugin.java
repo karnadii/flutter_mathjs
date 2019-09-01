@@ -1,9 +1,11 @@
 package com.karnadi.flutter_mathjs;
 
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.liquidplayer.javascript.JSContext;
+import org.liquidplayer.javascript.JSException;
 import org.liquidplayer.javascript.JSFunction;
 import org.liquidplayer.javascript.JSObject;
 import org.liquidplayer.javascript.JSValue;
@@ -30,9 +32,9 @@ import java.util.Scanner;
 public class FlutterMathjsPlugin implements MethodCallHandler {
 
 
-    private final JSContext context;
-    private final JSObject parser;
-    private final JSFunction eval;
+    final JSContext context;
+    final JSObject parser;
+    final JSFunction eval;
 
     public static void registerWith(Registrar registrar) {
         final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_mathjs");
@@ -44,15 +46,19 @@ public class FlutterMathjsPlugin implements MethodCallHandler {
         if (call.method.equals("eval") && call.hasArgument("exp")) {
             String res = eval(call.<String>argument("exp"));
             result.success(res);
+            return;
         } else if (call.method.equals("help") && call.hasArgument("func")) {
             String res = help(call.<String>argument("func"));
             result.success(res);
+            return;
         } else if (call.method.equals("format") && call.hasArgument("exp") && call.hasArgument("format")) {
             String res = format(call.<String>argument("exp"), call.<HashMap<String, Object>>argument("format"));
             result.success(res);
+            return;
         } else if (call.method.equals("clear")) {
             clear();
             result.success(null);
+            return;
         } else {
             result.notImplemented();
         }
@@ -100,7 +106,6 @@ public class FlutterMathjsPlugin implements MethodCallHandler {
         String doc = context.evaluateScript("math.help('" + func + "').toJSON()").toJSON();
         return doc;
     }
-
 
 
     private JSONObject getJsonFromMap(Map<String, Object> map) throws JSONException {

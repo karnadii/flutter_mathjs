@@ -1,7 +1,3 @@
-## 0.0.5
-
-Migrated to AndroidX
-
 ## 0.0.4
 
 add help function to retrieve a documentation

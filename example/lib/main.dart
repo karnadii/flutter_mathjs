@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -23,15 +21,20 @@ class _MyAppState extends State<MyApp> {
     'f(2, 3)',
     '100 degC to fahrenheit'
   ];
+  List<String> results = [];
 
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
 
-
-  Future<List<String>> computeAllExprs() async {
-    List<String> results = [];
+  init() async {
     for (var e in exprs) {
       results.add(await evaluate(e));
     }
-    return results;
+
+    setState(() {});
   }
 
   Future<String> evaluate(String expr) async {
@@ -50,7 +53,6 @@ class _MyAppState extends State<MyApp> {
             ));
       } on PlatformException catch (e) {
         resStr = e.message;
-        print(e);
       }
       return resStr;
     }
@@ -65,31 +67,17 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Stack(
           children: <Widget>[
-            FutureBuilder(
-              future: computeAllExprs(),
-              builder: (context, snapshot){
-                if(snapshot.hasError){
-                  return Text('Error.... ${snapshot.error.toString()}');
-                }
-                if(!snapshot.hasData){
-                  return Text('Computing....');
-                }
-                List<String> results = snapshot.data;
-                // avoids access to invalid position.
-               final length = min(results.length, exprs.length);
-               return  Container(
-                  child: ListView(
-                    padding: EdgeInsets.only(bottom: 60),
-                    children: <Widget>[
-                      for (var i = 0; i < length; i++)
-                        ListTile(
-                          title: Text(exprs[i]),
-                          subtitle: Text(results[i]),
-                        )
-                    ],
-                  ),
-                );
-              },
+            Container(
+              child: ListView(
+                padding: EdgeInsets.only(bottom: 60),
+                children: <Widget>[
+                  for (var i = 0; i < exprs.length; i++)
+                    ListTile(
+                      title: Text(exprs[i]),
+                      subtitle: Text(results[i]),
+                    )
+                ],
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -102,6 +90,13 @@ class _MyAppState extends State<MyApp> {
                   onSubmitted: (String expr) async {
                     if (expr != "clear") {
                       exprs.add(expr);
+                      try {
+                        results.add(await evaluate(expr));
+                      } on PlatformException catch (e) {
+                        results.add("Error : " + e.message);
+
+                        print(e);
+                      }
                       setState(() {});
                     } else {
                       await Mathjs.clear();
