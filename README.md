@@ -10,7 +10,7 @@ Flutter plugin to use mathjs using [liquidcore](https://github.com/LiquidPlayer/
 ### Depend on this plugin
 ```yaml
 dependencies:
-  flutter_mathjs: ^0.0.4
+  flutter_mathjs: any
 ```
 don't forget to run `flutter pub get`.
 
