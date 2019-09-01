@@ -1,6 +1,6 @@
 # flutter_mathjs
 
-Flutter plugin to use mathjs using [liquidcore](https://github.com/LiquidPlayer/LiquidCore/). Curently work from android only
+Flutter plugin to use [mathjs](https://mathjs.org) using [liquidcore](https://github.com/LiquidPlayer/LiquidCore/). Curently work for android only. If you know how to implement it in iOS, PRs are welcomed.
 
 
 > I create this plugin for my own app. so only some necesary function that I implemented, if you need more function from Mathjs, you can just open an issue and I will try to add it if I have time. Or you can simply make a pull request, add new function and fix my messy code.
